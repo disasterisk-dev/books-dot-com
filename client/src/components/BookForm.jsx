@@ -1,4 +1,5 @@
 import { useState } from "react";
+import usePost from "../utils/usePost";
 
 const BookForm = () => {
     const [title, setTitle] = useState("");
@@ -12,23 +13,14 @@ const BookForm = () => {
 
         const book = { title, author, rating, finished };
 
-        const response = await fetch("http://localhost:4000/api/books", {
-            method: "POST",
-            body: JSON.stringify(book),
-            headers: {
-                "Content-Type": "application/json",
-            },
-        });
+        const { error, json } = usePost(
+            "http://localhost:4000/api/books",
+            book,
+        );
 
-        const json = await response.json();
-
-        if (!response.ok) {
-            setError(json.error);
-        }
-
-        if (response.ok) {
-            setError(null);
-            console.log("new book added ", json);
+        if (error) {
+            console.log(error);
+        } else {
             setTitle("");
             setAuthor("");
             setRating(0);
@@ -38,7 +30,7 @@ const BookForm = () => {
 
     return (
         <form className="flex flex-col bg-white px-3 py-5">
-            <h3>Add a new Book</h3>
+            <h3 className="font-zilla text-lg font-semibold">Add a new Book</h3>
 
             <label>Title:</label>
             <input
@@ -47,7 +39,7 @@ const BookForm = () => {
                     setTitle(e.target.value);
                 }}
                 value={title}
-                className="mb-2 rounded-md border-2 border-gray-500"
+                className="mb-2 rounded-md border-2 border-gray-500 px-2 py-1"
             />
 
             <label>Author:</label>
@@ -57,7 +49,7 @@ const BookForm = () => {
                     setAuthor(e.target.value);
                 }}
                 value={author}
-                className="mb-2 rounded-md border-2 border-gray-500"
+                className="mb-2 rounded-md border-2 border-gray-500 px-2 py-1"
             />
 
             <label>Rating:</label>
@@ -86,7 +78,7 @@ const BookForm = () => {
                 />
             </div>
             <button
-                className="rounded-md bg-blue-900 p-3 text-white"
+                className="rounded-md bg-blue-900 p-3 font-zilla text-white"
                 onClick={(e) => handleSubmit(e)}
             >
                 Add Book

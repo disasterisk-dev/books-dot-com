@@ -9,7 +9,12 @@ const Navbar = () => {
                 <Link to={"/"}>
                     <h1 className="text-4xl  font-bold">Books.com</h1>
                 </Link>
-                <Link to={"/"} className="text-2xl">
+                <Link
+                    to={"https://github.com/JoelRobinsonUK/books-dot-com"}
+                    target="_blank"
+                    rel="noreferrer"
+                    className="text-2xl"
+                >
                     <FontAwesomeIcon icon={faGithub} />
                 </Link>
             </div>

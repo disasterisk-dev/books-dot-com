@@ -3,35 +3,23 @@ import { useEffect, useState } from "react";
 //components
 import BookDetails from "../components/BookDetails";
 import BookForm from "../components/BookForm";
+import useFetch from "../utils/useFetch";
 
 const Home = () => {
-    const [books, setBooks] = useState(null);
-
-    useEffect(() => {
-        fetch("http://localhost:4000/api/books")
-            .then((response) => {
-                if (!response.ok) {
-                    throw Error("Something went wrong");
-                }
-                return response.json();
-            })
-            .then((data) => {
-                setBooks(data);
-            })
-            .catch((err) => {
-                console.log(err.message);
-            });
-    }, []);
+    const { data, isPending, error } = useFetch(
+        "http://localhost:4000/api/books",
+    );
 
     return (
         <div className="home">
             <div className="grid grid-cols-12 gap-3">
                 <div className="col-span-8">
-                    {!books && <h2>Loading</h2>}
-                    {books &&
-                        books.map((book) => (
+                    {isPending && <h2>Loading</h2>}
+                    {data &&
+                        data.map((book) => (
                             <BookDetails key={book._id} book={book} />
                         ))}
+                    {error && <h2>{error}</h2>}
                 </div>
                 <div className="col-span-4">
                     <BookForm />
