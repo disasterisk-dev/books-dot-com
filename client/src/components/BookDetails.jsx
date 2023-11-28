@@ -10,17 +10,19 @@ const BookDetails = ({ book }) => {
     }, [book.finished]);
 
     return (
-        <div
-            className={`flex items-center border-l-8 bg-white p-3 ${fColor} mb-4`}
-        >
-            <div className="grow">
-                <h4 className="text-2xl">
-                    <strong>{book.title}</strong>
-                </h4>
-                <p>By {book.author}</p>
-                <span>{book.createdAt}</span>
+        <div className="mb-4">
+            <div
+                className={`flex items-center border-l-8 bg-white p-3 ${fColor}`}
+            >
+                <div className="grow">
+                    <h4 className="text-2xl">
+                        <strong>{book.title}</strong>
+                    </h4>
+                    <p>{book.author}</p>
+                </div>
+                <p className="">{book.rating}/5</p>
             </div>
-            <p className="">{book.rating}/5</p>
+            <span className="block text-right text-xs">{book.createdAt}</span>
         </div>
     );
 };
