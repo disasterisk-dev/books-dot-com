@@ -1,36 +1,40 @@
 import { useState } from "react";
 import usePost from "../utils/usePost";
+import Rating from "@mui/material/Rating";
 
 const BookForm = () => {
     const [title, setTitle] = useState("");
     const [author, setAuthor] = useState("");
     const [rating, setRating] = useState(0);
     const [finished, setFinished] = useState(false);
+    const [thoughts, setThoughts] = useState("");
     const [error, setError] = useState(null);
 
     const handleSubmit = async (e) => {
         e.preventDefault();
 
-        const book = { title, author, rating, finished };
+        const book = { title, author, rating, finished, thoughts };
 
-        const { error, json } = usePost(
-            "http://localhost:4000/api/books",
-            book,
-        );
-
-        if (error) {
-            console.log(error);
-        } else {
-            setTitle("");
-            setAuthor("");
-            setRating(0);
-            setFinished(false);
-        }
+        usePost("http://localhost:4000/api/books", book, (err, data) => {
+            if (err) {
+                console.log(err);
+                setError(err);
+            } else {
+                console.log(data);
+                setTitle("");
+                setAuthor("");
+                setRating(0);
+                setFinished(false);
+                setThoughts("");
+            }
+        });
     };
 
     return (
-        <form className="flex flex-col bg-white px-3 py-5">
-            <h3 className="font-zilla text-lg font-semibold">Add a new Book</h3>
+        <form className="sticky top-24 flex flex-col bg-white px-3 py-5">
+            <h3 className="text-center font-zilla text-xl font-semibold">
+                Add a new Book
+            </h3>
 
             <label>Title:</label>
             <input
@@ -52,20 +56,19 @@ const BookForm = () => {
                 className="mb-2 rounded-md border-2 border-gray-500 px-2 py-1"
             />
 
-            <label>Rating:</label>
-            <div className="mb-2 flex items-center">
-                <input
-                    type="range"
-                    min={0}
-                    max={5}
-                    onChange={(e) => {
-                        setRating(e.target.value);
-                    }}
+            <label className="mb-2 flex items-center">
+                Rating:
+                <Rating
+                    className="ml-3"
+                    size="large"
+                    precision={0.5}
                     value={rating}
-                    className="mr-3"
+                    onChange={(event, newValue) => {
+                        setRating(newValue);
+                    }}
                 />
-                <span>{rating} stars</span>
-            </div>
+            </label>
+
             <div className="mb-2">
                 <label className="mr-3">Finished?</label>
                 <input
@@ -77,6 +80,16 @@ const BookForm = () => {
                     }}
                 />
             </div>
+
+            <label>Thoughts:</label>
+            <textarea
+                rows={5}
+                className="mb-2 rounded-md border-2 border-gray-500 px-2 py-1"
+                value={thoughts}
+                onChange={(e) => {
+                    setThoughts(e.target.value);
+                }}
+            ></textarea>
             <button
                 className="rounded-md bg-blue-900 p-3 font-zilla text-white"
                 onClick={(e) => handleSubmit(e)}

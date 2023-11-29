@@ -4,6 +4,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Home from "./pages/Home";
 import Navbar from "./components/Navbar";
 import Book from "./pages/Book";
+import Search from "./pages/Search";
 
 function App() {
     return (
@@ -14,6 +15,7 @@ function App() {
                     <Routes>
                         <Route path="/" element={<Home />} />
                         <Route path="/books/:id" element={<Book />} />
+                        <Route path="/search" element={<Search />} />
                     </Routes>
                 </div>
             </main>

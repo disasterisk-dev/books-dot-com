@@ -27,11 +27,17 @@ const getBook = async (req, res) => {
 
 //create a new book
 const createBook = async (req, res) => {
-    const { title, author, rating, finished } = req.body;
+    const { title, author, rating, finished, thoughts } = req.body;
 
     //add doc to DB
     try {
-        const book = await Book.create({ title, author, rating, finished });
+        const book = await Book.create({
+            title,
+            author,
+            rating,
+            finished,
+            thoughts,
+        });
         res.status(200).json(book);
     } catch (err) {
         res.status(400).json({ error: err.message });

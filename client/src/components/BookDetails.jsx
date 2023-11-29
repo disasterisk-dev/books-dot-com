@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import { faStar } from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import Rating from "@mui/material/Rating";
 
 const BookDetails = ({ book }) => {
     const [fColor, setFColor] = useState("border-l-red-500");
@@ -33,16 +32,12 @@ const BookDetails = ({ book }) => {
                     </h4>
                     <p>{book.author}</p>
                 </div>
-                <p className="">{book.rating}/5</p>
-                {/* <div>
-                    {stars.map((star) => (
-                        <FontAwesomeIcon
-                            key={stars.indexOf(star)}
-                            icon={faStar}
-                            className={star}
-                        />
-                    ))}
-                </div> */}
+                <Rating
+                    readOnly
+                    size="large"
+                    precision={0.5}
+                    value={book.rating}
+                />
             </div>
             <span className="mb-4 block text-right text-xs">
                 {book.createdAt}

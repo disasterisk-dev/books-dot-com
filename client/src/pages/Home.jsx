@@ -6,9 +6,13 @@ import BookForm from "../components/BookForm";
 import useFetch from "../utils/useFetch";
 
 const Home = () => {
-    const { data, isPending, error } = useFetch(
-        "http://localhost:4000/api/books",
-    );
+    const { data, isPending, error, fetchData } = useFetch();
+
+    useEffect(() => {
+        fetchData("http://localhost:4000/api/books");
+    }, []);
+
+    document.title = "Books";
 
     return (
         <div className="home">
@@ -19,6 +23,7 @@ const Home = () => {
                         data.map((book) => (
                             <BookDetails key={book._id} book={book} />
                         ))}
+                    {!data && <h1>No Book</h1>}
                     {error && <h2>{error}</h2>}
                 </div>
                 <div className="col-span-4">

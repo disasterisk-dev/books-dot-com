@@ -1,4 +1,4 @@
-const usePost = async (url, obj) => {
+const usePost = async (url, obj, callback) => {
     let error = null;
 
     const response = await fetch(url, {
@@ -15,7 +15,7 @@ const usePost = async (url, obj) => {
         error = json.error;
     }
 
-    return { error, json };
+    callback(error, json);
 };
 
 export default usePost;

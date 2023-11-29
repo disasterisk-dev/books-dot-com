@@ -20,6 +20,10 @@ const bookSchema = new Schema(
             type: Boolean,
             required: true,
         },
+        thoughts: {
+            type: String,
+            required: false,
+        },
     },
     { timestamps: true },
 );
