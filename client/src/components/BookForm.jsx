@@ -1,6 +1,7 @@
 import { useState } from "react";
 import usePost from "../utils/usePost";
-import Rating from "@mui/material/Rating";
+import { Rating, Accordion, AccordionSummary, AccordionDetails } from "@mui/material";
+
 
 const BookForm = () => {
     const [title, setTitle] = useState("");
@@ -31,73 +32,145 @@ const BookForm = () => {
     };
 
     return (
-        <form className="sticky top-24 flex flex-col bg-white px-3 py-5">
-            <h3 className="text-center font-zilla text-xl font-semibold">
-                Add a new Book
-            </h3>
+        <>
+            <form className="sticky top-24 md:flex flex-col bg-white px-3 py-5 hidden">
+                <h3 className="text-center font-zilla text-xl font-semibold">
+                    Add a new Book
+                </h3>
 
-            <label>Title:</label>
-            <input
-                type="text"
-                onChange={(e) => {
-                    setTitle(e.target.value);
-                }}
-                value={title}
-                className="mb-2 rounded-md border-2 border-gray-500 px-2 py-1"
-            />
-
-            <label>Author:</label>
-            <input
-                type="text"
-                onChange={(e) => {
-                    setAuthor(e.target.value);
-                }}
-                value={author}
-                className="mb-2 rounded-md border-2 border-gray-500 px-2 py-1"
-            />
-
-            <label className="mb-2 flex items-center">
-                Rating:
-                <Rating
-                    className="ml-3"
-                    size="large"
-                    precision={0.5}
-                    value={rating}
-                    onChange={(event, newValue) => {
-                        setRating(newValue);
-                    }}
-                />
-            </label>
-
-            <div className="mb-2">
-                <label className="mr-3">Finished?</label>
+                <label>Title:</label>
                 <input
-                    type="checkbox"
-                    onChange={() => {
-                        finished ? setFinished(false) : setFinished(true);
-
-                        console.log(finished);
+                    type="text"
+                    onChange={(e) => {
+                        setTitle(e.target.value);
                     }}
+                    value={title}
+                    className="mb-2 rounded-md border-2 border-gray-500 px-2 py-1"
                 />
-            </div>
 
-            <label>Thoughts:</label>
-            <textarea
-                rows={5}
-                className="mb-2 rounded-md border-2 border-gray-500 px-2 py-1"
-                value={thoughts}
-                onChange={(e) => {
-                    setThoughts(e.target.value);
-                }}
-            ></textarea>
-            <button
-                className="rounded-md bg-blue-900 p-3 font-zilla text-white"
-                onClick={(e) => handleSubmit(e)}
-            >
-                Add Book
-            </button>
-            {error && <div className="text-red-500">{error}</div>}
-        </form>
+                <label>Author:</label>
+                <input
+                    type="text"
+                    onChange={(e) => {
+                        setAuthor(e.target.value);
+                    }}
+                    value={author}
+                    className="mb-2 rounded-md border-2 border-gray-500 px-2 py-1"
+                />
+
+                <label className="mb-2 flex items-center">
+                    Rating:
+                    <Rating
+                        className="ml-3"
+                        size="large"
+                        precision={0.5}
+                        value={rating}
+                        onChange={(event, newValue) => {
+                            setRating(newValue);
+                        }}
+                    />
+                </label>
+
+                <div className="mb-2">
+                    <label className="mr-3">Finished?</label>
+                    <input
+                        type="checkbox"
+                        onChange={() => {
+                            finished ? setFinished(false) : setFinished(true);
+
+                            console.log(finished);
+                        }}
+                    />
+                </div>
+
+                <label>Thoughts:</label>
+                <textarea
+                    rows={5}
+                    className="mb-2 rounded-md border-2 border-gray-500 px-2 py-1"
+                    value={thoughts}
+                    onChange={(e) => {
+                        setThoughts(e.target.value);
+                    }}
+                ></textarea>
+                <button
+                    className="rounded-md bg-blue-900 p-3 font-zilla text-white"
+                    onClick={(e) => handleSubmit(e)}
+                >
+                    Add Book
+                </button>
+                {error && <div className="text-red-500">{error}</div>}
+            </form>
+            <Accordion>
+                <AccordionSummary>
+                    <h3 className="text-center font-zilla text-xl font-semibold">
+                        Add a new Book
+                    </h3>
+                </AccordionSummary>
+                <AccordionDetails>
+                    <label>Title:</label>
+                    <input
+                        type="text"
+                        onChange={(e) => {
+                            setTitle(e.target.value);
+                        }}
+                        value={title}
+                        className="mb-2 rounded-md border-2 border-gray-500 px-2 py-1"
+                    />
+
+                    <label>Author:</label>
+                    <input
+                        type="text"
+                        onChange={(e) => {
+                            setAuthor(e.target.value);
+                        }}
+                        value={author}
+                        className="mb-2 rounded-md border-2 border-gray-500 px-2 py-1"
+                    />
+
+                    <label className="mb-2 flex items-center">
+                        Rating:
+                        <Rating
+                            className="ml-3"
+                            size="large"
+                            precision={0.5}
+                            value={rating}
+                            onChange={(event, newValue) => {
+                                setRating(newValue);
+                            }}
+                        />
+                    </label>
+
+                    <div className="mb-2">
+                        <label className="mr-3">Finished?</label>
+                        <input
+                            type="checkbox"
+                            onChange={() => {
+                                finished ? setFinished(false) : setFinished(true);
+
+                                console.log(finished);
+                            }}
+                        />
+                    </div>
+
+                    <label>Thoughts:</label>
+                    <textarea
+                        rows={5}
+                        className="mb-2 rounded-md border-2 border-gray-500 px-2 py-1"
+                        value={thoughts}
+                        onChange={(e) => {
+                            setThoughts(e.target.value);
+                        }}
+                    ></textarea>
+                    <button
+                        className="rounded-md bg-blue-900 p-3 font-zilla text-white"
+                        onClick={(e) => handleSubmit(e)}
+                    >
+                        Add Book
+                    </button>
+                    {error && <div className="text-red-500">{error}</div>}
+                </AccordionDetails>
+            </Accordion>
+        </>
     );
 };
 

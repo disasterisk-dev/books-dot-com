@@ -21,6 +21,6 @@
     display: block;
     position: absolute;
     height: 100%;
-    width: auto;
+    width: 100%;
     background-image: url(https://placehold.co/180x240);
 }
