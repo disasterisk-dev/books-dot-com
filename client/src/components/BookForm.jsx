@@ -1,7 +1,11 @@
 import { useState } from "react";
 import usePost from "../utils/usePost";
-import { Rating, Accordion, AccordionSummary, AccordionDetails } from "@mui/material";
-
+import {
+    Rating,
+    Accordion,
+    AccordionSummary,
+    AccordionDetails,
+} from "@mui/material";
 
 const BookForm = () => {
     const [title, setTitle] = useState("");
@@ -33,7 +37,7 @@ const BookForm = () => {
 
     return (
         <>
-            <form className="sticky top-24 md:flex flex-col bg-white px-3 py-5 hidden">
+            <form className="sticky top-24 hidden flex-col rounded-lg bg-white px-3 py-5 md:flex">
                 <h3 className="text-center font-zilla text-xl font-semibold">
                     Add a new Book
                 </h3>
@@ -100,13 +104,13 @@ const BookForm = () => {
                 </button>
                 {error && <div className="text-red-500">{error}</div>}
             </form>
-            <Accordion>
+            <Accordion className="md:hidden">
                 <AccordionSummary>
                     <h3 className="text-center font-zilla text-xl font-semibold">
                         Add a new Book
                     </h3>
                 </AccordionSummary>
-                <AccordionDetails>
+                <AccordionDetails className="flex flex-col">
                     <label>Title:</label>
                     <input
                         type="text"
@@ -145,7 +149,9 @@ const BookForm = () => {
                         <input
                             type="checkbox"
                             onChange={() => {
-                                finished ? setFinished(false) : setFinished(true);
+                                finished
+                                    ? setFinished(false)
+                                    : setFinished(true);
 
                                 console.log(finished);
                             }}

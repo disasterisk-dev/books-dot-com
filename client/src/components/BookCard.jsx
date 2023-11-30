@@ -27,7 +27,7 @@ const BookCard = ({ book }) => {
 
     return (
         <div
-            className={`col-span-4 flex flex-col items-center gap-3 border-l-8 bg-white p-3 text-center`}
+            className={`col-span-4 flex flex-col items-center gap-3 rounded-lg bg-white p-3 text-center`}
         >
             <h4 className="text-2xl">
                 <strong>{book.title}</strong>

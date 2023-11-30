@@ -24,7 +24,7 @@ const BookDetails = ({ book }) => {
     return (
         <Link to={`/books/${book._id}`}>
             <div
-                className={`flex items-center border-l-8 bg-white p-3 ${fColor}`}
+                className={`flex items-center rounded-lg border-l-8 bg-white p-3 ${fColor}`}
             >
                 <div className="grow">
                     <h4 className="text-2xl">

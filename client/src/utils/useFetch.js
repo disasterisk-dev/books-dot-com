@@ -6,7 +6,9 @@ const useFetch = () => {
     const [error, setError] = useState(null);
 
     const fetchData = async (url) => {
+        setData(null);
         setIsPending(true);
+        setError(null);
 
         fetch(url)
             .then((response) => {
@@ -25,6 +27,7 @@ const useFetch = () => {
                 setIsPending(false);
             });
     };
+
     return { data, isPending, error, fetchData };
 };
 
