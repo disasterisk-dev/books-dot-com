@@ -8,10 +8,29 @@ import { useBooksContext } from "../utils/useBooksContext";
 const Search = () => {
     const { search, dispatch } = useBooksContext();
     const { query } = useParams();
-    const { data, isPending, error, fetchData } = useFetch();
+    const [results, setResults] = useState(null);
+    const [isPending, setIsPending] = useState(true);
+    const [error, setError] = useState(null);
 
     useEffect(() => {
-        fetchData(`https://openlibrary.org/search.json?q=${query}`);
+        setIsPending(true);
+
+        fetch(`https://openlibrary.org/search.json?q=${query}`)
+            .then((response) => {
+                if (!response.ok) {
+                    throw Error("Something went wrong");
+                }
+                return response.json();
+            })
+            .then((data) => {
+                setResults(data);
+                setIsPending(false);
+                setError(null);
+            })
+            .catch((err) => {
+                setError(err.message);
+                setIsPending(false);
+            });
     }, [query]);
 
     return (
@@ -20,17 +39,19 @@ const Search = () => {
                 <BookForm />
             </div>
             <div className="col-span-12 md:col-span-8">
-                {isPending && !data && <h4>Loading</h4>}
-                {data && (
+                {isPending && !results && <h4>Loading</h4>}
+                {results && (
                     <>
-                        <h2>Showing results for {search}</h2>
-                        {data.docs.map((doc) => (
+                        <h2>Showing results for "{search}"</h2>
+                        {results.docs.map((doc) => (
                             <BookPreview book={doc} />
                         ))}
                     </>
                 )}
-                {data && data.num_found === 0 && <h4>No Results</h4>}
-                {error && <h4>{error}</h4>}
+                {results && results.num_found === 0 && <h4>No Results</h4>}
+                {error && (
+                    <h4>Oops! We couldn't find any results for {search}</h4>
+                )}
             </div>
         </div>
     );

@@ -5,6 +5,7 @@ import Home from "./pages/Home";
 import Navbar from "./components/Navbar";
 import Book from "./pages/Book";
 import Search from "./pages/Search";
+import Footer from "./components/Footer";
 
 function App() {
     return (
@@ -19,6 +20,7 @@ function App() {
                     </Routes>
                 </div>
             </main>
+            <Footer />
         </BrowserRouter>
     );
 }

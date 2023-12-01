@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import Rating from "@mui/material/Rating";
+import { formatDistanceToNow } from "date-fns";
 
 const BookDetails = ({ book }) => {
     const [fColor, setFColor] = useState("border-l-red-500");
@@ -40,7 +41,9 @@ const BookDetails = ({ book }) => {
                 />
             </div>
             <span className="mb-4 block text-right text-xs">
-                {book.createdAt}
+                {formatDistanceToNow(new Date(book.createdAt), {
+                    addSuffix: true,
+                })}
             </span>
         </Link>
     );

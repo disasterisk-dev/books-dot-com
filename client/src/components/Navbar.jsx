@@ -5,6 +5,8 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Tooltip } from "@mui/material";
 import { useState } from "react";
 import { useBooksContext } from "../utils/useBooksContext";
+import Searchbar from "./Searchbar";
+import SearchbarMobile from "./SearchbarMobile";
 
 const Navbar = () => {
     const { dispatch } = useBooksContext();
@@ -19,36 +21,7 @@ const Navbar = () => {
                     <h1 className="text-4xl  font-bold">Books</h1>
                 </Link>
                 <div className="flex items-center gap-3">
-                    <div className="hidden items-center gap-2 rounded-lg bg-blue-200 px-3 py-2 md:flex">
-                        <input
-                            type="text"
-                            className="bg-blue-200 focus:outline-0"
-                            value={searchTerm}
-                            onChange={(e) => {
-                                setSearchTerm(e.target.value);
-                            }}
-                        />
-                        <button
-                            onClick={(e) => {
-                                e.preventDefault();
-                                let searchString = searchTerm.replaceAll(
-                                    " ",
-                                    "+",
-                                );
-                                navigate(`/query/${searchString}`);
-                                dispatch({
-                                    type: "SET_SEARCH",
-                                    payload: searchTerm,
-                                });
-                                setSearchTerm("");
-                            }}
-                        >
-                            <FontAwesomeIcon
-                                icon={faMagnifyingGlass}
-                                className="text-2xl"
-                            />
-                        </button>
-                    </div>
+                    <Searchbar />
                     <Tooltip title="search" className="md:hidden">
                         <button>
                             <FontAwesomeIcon
@@ -79,33 +52,7 @@ const Navbar = () => {
                 </div>
             </div>
             <div className={`${searchDisplay} gap-3 bg-gray-200 px-7 py-3`}>
-                <div className="flex items-center gap-2 rounded-lg bg-blue-200 px-3 py-2">
-                    <input
-                        type="text"
-                        className="grow bg-blue-200 focus:outline-0"
-                        value={searchTerm}
-                        onChange={(e) => {
-                            setSearchTerm(e.target.value);
-                        }}
-                    />
-                    <button
-                        onClick={(e) => {
-                            e.preventDefault();
-                            let searchString = searchTerm.replaceAll(" ", "+");
-                            navigate(`/query/${searchString}`);
-                            dispatch({
-                                type: "SET_SEARCH",
-                                payload: searchTerm,
-                            });
-                            setSearchTerm("");
-                        }}
-                    >
-                        <FontAwesomeIcon
-                            icon={faMagnifyingGlass}
-                            className="text-2xl"
-                        />
-                    </button>
-                </div>
+                <SearchbarMobile />
             </div>
         </header>
     );

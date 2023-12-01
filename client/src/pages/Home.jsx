@@ -8,21 +8,26 @@ import useFetch from "../utils/useFetch";
 
 const Home = () => {
     const { books, dispatch } = useBooksContext();
-    // const { data, isPending, error, fetchData } = useFetch();
+    const [isPending, setIsPending] = useState("true");
+    const [error, setError] = useState(null);
 
     useEffect(() => {
-        // fetchData("http://localhost:4000/api/books", () => {});
-
-        const fetchBooks = async () => {
-            const response = await fetch("http://localhost:4000/api/books");
-            const json = await response.json();
-
-            if (response.ok) {
-                dispatch({ type: "SET_BOOKS", payload: json });
-            }
-        };
-
-        fetchBooks();
+        fetch("http://localhost:4000/api/books")
+            .then((response) => {
+                if (!response.ok) {
+                    throw Error("Something went wrong");
+                }
+                return response.json();
+            })
+            .then((data) => {
+                dispatch({ type: "SET_BOOKS", payload: data });
+                setIsPending(false);
+                setError(null);
+            })
+            .catch((err) => {
+                setError(err.message);
+                setIsPending(false);
+            });
     }, []);
 
     document.title = "Books";
@@ -34,13 +39,13 @@ const Home = () => {
                     <BookForm />
                 </div>
                 <div className="col-span-12 md:col-span-8">
-                    {/* {isPending && <h2>Loading</h2>} */}
+                    {isPending && <h2>Loading</h2>}
+                    {books && books.length <= 0 && <h1>No books yet</h1>}
                     {books &&
                         books.map((book) => (
                             <BookDetails key={book._id} book={book} />
                         ))}
-                    {/* {!data && !error && <h1>No Book</h1>}
-                    {error && <h2>{error}</h2>} */}
+                    {error && <h2>{error}</h2>}
                 </div>
             </div>
         </div>
