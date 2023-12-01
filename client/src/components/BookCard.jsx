@@ -1,8 +1,11 @@
 import Rating from "@mui/material/Rating";
 import { useNavigate } from "react-router-dom";
+import { useBooksContext } from "../utils/useBooksContext";
 
 const BookCard = ({ book }) => {
+    const { dispatch } = useBooksContext();
     const navigate = useNavigate();
+
     const handleSubmit = async (e) => {
         e.preventDefault();
 
@@ -10,16 +13,14 @@ const BookCard = ({ book }) => {
             `http://localhost:4000/api/books/${book._id}`,
             {
                 method: "DELETE",
-                headers: {
-                    "Content-Type": "application/json",
-                },
             },
         );
 
+        const json = await response.json();
+
         if (response.ok) {
+            dispatch({ type: "DELETE_BOOK", payload: json });
             console.log("Deleted");
-        } else {
-            console.log("Something went wrong");
         }
 
         navigate(-1);

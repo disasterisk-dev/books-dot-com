@@ -3,8 +3,10 @@ import { useParams } from "react-router-dom";
 import useFetch from "../utils/useFetch";
 import BookPreview from "../components/BookPreview";
 import BookForm from "../components/BookForm";
+import { useBooksContext } from "../utils/useBooksContext";
 
 const Search = () => {
+    const { search, dispatch } = useBooksContext();
     const { query } = useParams();
     const { data, isPending, error, fetchData } = useFetch();
 
@@ -21,7 +23,7 @@ const Search = () => {
                 {isPending && !data && <h4>Loading</h4>}
                 {data && (
                     <>
-                        <h2>Showing results for {query}</h2>
+                        <h2>Showing results for {search}</h2>
                         {data.docs.map((doc) => (
                             <BookPreview book={doc} />
                         ))}

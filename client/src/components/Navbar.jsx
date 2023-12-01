@@ -4,8 +4,10 @@ import { faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Tooltip } from "@mui/material";
 import { useState } from "react";
+import { useBooksContext } from "../utils/useBooksContext";
 
 const Navbar = () => {
+    const { dispatch } = useBooksContext();
     const [searchTerm, setSearchTerm] = useState("");
     const [searchDisplay, setSearchDisplay] = useState("hidden");
     const navigate = useNavigate();
@@ -34,6 +36,10 @@ const Navbar = () => {
                                     "+",
                                 );
                                 navigate(`/query/${searchString}`);
+                                dispatch({
+                                    type: "SET_SEARCH",
+                                    payload: searchTerm,
+                                });
                                 setSearchTerm("");
                             }}
                         >
@@ -87,6 +93,10 @@ const Navbar = () => {
                             e.preventDefault();
                             let searchString = searchTerm.replaceAll(" ", "+");
                             navigate(`/query/${searchString}`);
+                            dispatch({
+                                type: "SET_SEARCH",
+                                payload: searchTerm,
+                            });
                             setSearchTerm("");
                         }}
                     >

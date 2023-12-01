@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useBooksContext } from "../utils/useBooksContext";
 import usePost from "../utils/usePost";
 import {
     Rating,
@@ -6,14 +7,17 @@ import {
     AccordionSummary,
     AccordionDetails,
 } from "@mui/material";
+import { json } from "react-router-dom";
 
 const BookForm = () => {
+    const { dispatch } = useBooksContext();
     const [title, setTitle] = useState("");
     const [author, setAuthor] = useState("");
     const [rating, setRating] = useState(0);
     const [finished, setFinished] = useState(false);
     const [thoughts, setThoughts] = useState("");
     const [error, setError] = useState(null);
+    const [emptyFields, setEmptyFields] = useState([]);
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -24,6 +28,7 @@ const BookForm = () => {
             if (err) {
                 console.log(err);
                 setError(err);
+                setEmptyFields(data.emptyFields);
             } else {
                 console.log(data);
                 setTitle("");
@@ -31,6 +36,8 @@ const BookForm = () => {
                 setRating(0);
                 setFinished(false);
                 setThoughts("");
+
+                dispatch({ type: "ADD_BOOK", payload: data });
             }
         });
     };
@@ -49,7 +56,11 @@ const BookForm = () => {
                         setTitle(e.target.value);
                     }}
                     value={title}
-                    className="mb-2 rounded-md border-2 border-gray-500 px-2 py-1"
+                    className={`mb-2 rounded-md border-2 px-2 py-1 ${
+                        emptyFields.includes("title")
+                            ? "border-red-500"
+                            : "border-gray-500"
+                    }`}
                 />
 
                 <label>Author:</label>
@@ -59,19 +70,27 @@ const BookForm = () => {
                         setAuthor(e.target.value);
                     }}
                     value={author}
-                    className="mb-2 rounded-md border-2 border-gray-500 px-2 py-1"
+                    className={`mb-2 rounded-md border-2 px-2 py-1 ${
+                        emptyFields.includes("author")
+                            ? "border-red-500"
+                            : "border-gray-500"
+                    }`}
                 />
 
                 <label className="mb-2 flex items-center">
                     Rating:
                     <Rating
-                        className="ml-3"
                         size="large"
                         precision={0.5}
                         value={rating}
                         onChange={(event, newValue) => {
                             setRating(newValue);
                         }}
+                        className={`ml-3 ${
+                            emptyFields.includes("rating")
+                                ? "border-b-2 border-red-500"
+                                : null
+                        }`}
                     />
                 </label>
 
@@ -118,7 +137,11 @@ const BookForm = () => {
                             setTitle(e.target.value);
                         }}
                         value={title}
-                        className="mb-2 rounded-md border-2 border-gray-500 px-2 py-1"
+                        className={`mb-2 rounded-md border-2 px-2 py-1 ${
+                            emptyFields.includes("title")
+                                ? "border-red-500"
+                                : "border-gray-500"
+                        }`}
                     />
 
                     <label>Author:</label>
@@ -128,19 +151,27 @@ const BookForm = () => {
                             setAuthor(e.target.value);
                         }}
                         value={author}
-                        className="mb-2 rounded-md border-2 border-gray-500 px-2 py-1"
+                        className={`mb-2 rounded-md border-2 border-gray-500 px-2 py-1 ${
+                            emptyFields.includes("author")
+                                ? "border-red-500"
+                                : "border-gray-500"
+                        }`}
                     />
 
                     <label className="mb-2 flex items-center">
                         Rating:
                         <Rating
-                            className="ml-3"
                             size="large"
                             precision={0.5}
                             value={rating}
                             onChange={(event, newValue) => {
                                 setRating(newValue);
                             }}
+                            className={`ml-3 ${
+                                emptyFields.includes("rating")
+                                    ? "border-b-2 border-red-500"
+                                    : null
+                            }`}
                         />
                     </label>
 
