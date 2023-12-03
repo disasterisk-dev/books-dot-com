@@ -7,6 +7,7 @@ require("dotenv").config();
 const app = express();
 const mongoose = require("mongoose");
 const bookRoutes = require("./routes/books");
+const userRoutes = require("./routes/user");
 
 //middleware
 app.use(express.json());
@@ -21,6 +22,7 @@ app.use((req, res, next) => {
 //routes
 
 app.use("/api/books", bookRoutes);
+app.use("/api/user", userRoutes);
 
 //connect to DB
 
