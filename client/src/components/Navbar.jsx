@@ -1,8 +1,8 @@
 import { Link, useNavigate } from "react-router-dom";
-import { faGithub } from "@fortawesome/free-brands-svg-icons";
 import {
     faMagnifyingGlass,
     faRightToBracket,
+    faRightFromBracket,
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Tooltip } from "@mui/material";
@@ -10,12 +10,20 @@ import { useState } from "react";
 import { useBooksContext } from "../hooks/useBooksContext";
 import Searchbar from "./Searchbar";
 import SearchbarMobile from "./SearchbarMobile";
+import { useLogout } from "../hooks/useLogout";
+import { useAuthContext } from "../hooks/useAuthContext";
 
 const Navbar = () => {
+    const { user } = useAuthContext();
     const { dispatch } = useBooksContext();
-    const [searchTerm, setSearchTerm] = useState("");
-    const [searchDisplay, setSearchDisplay] = useState("hidden");
+    const [searchTerm, setSearchTerm] = useState("false");
+    const [searchDisplay, setSearchDisplay] = useState(false);
     const navigate = useNavigate();
+    const { logout } = useLogout();
+
+    const handleLogOut = () => {
+        logout();
+    };
 
     return (
         <header className="sticky top-0 z-10 bg-white font-zilla text-blue-900">
@@ -30,43 +38,52 @@ const Navbar = () => {
                             <button>
                                 <FontAwesomeIcon
                                     icon={faMagnifyingGlass}
-                                    className="text-2xl"
+                                    className="text-xl"
                                     onClick={() => {
-                                        searchDisplay === "hidden"
-                                            ? setSearchDisplay("block")
-                                            : setSearchDisplay("hidden");
+                                        searchDisplay === false
+                                            ? setSearchDisplay(true)
+                                            : setSearchDisplay(false);
                                     }}
                                 />
                             </button>
                         </Tooltip>
-                        <Tooltip title="Login">
-                            <Link to={"/login"}>
-                                <FontAwesomeIcon
-                                    icon={faRightToBracket}
-                                    className="text-2xl"
-                                />
-                            </Link>
-                        </Tooltip>
-                        <Tooltip title="GitHub">
-                            <Link
-                                to={
-                                    "https://github.com/JoelRobinsonUK/books-dot-com"
-                                }
-                                target="_blank"
-                                rel="noreferrer"
-                            >
-                                <FontAwesomeIcon
-                                    icon={faGithub}
-                                    className="text-2xl"
-                                />
-                            </Link>
-                        </Tooltip>
+                        {!user && (
+                            <Tooltip title="Login">
+                                <Link
+                                    to={"/login"}
+                                    className="flex items-center gap-2 rounded-3xl bg-blue-900 p-2 text-xl text-white md:rounded-lg"
+                                >
+                                    <span className="hidden md:block">
+                                        Log In
+                                    </span>
+                                    <FontAwesomeIcon icon={faRightToBracket} />
+                                </Link>
+                            </Tooltip>
+                        )}
+                        {user && (
+                            <Tooltip title="Log out">
+                                <button
+                                    onClick={handleLogOut}
+                                    className="flex items-center gap-2 rounded-3xl bg-blue-900 p-2 text-xl text-white md:rounded-lg"
+                                >
+                                    <span className="hidden md:block">
+                                        Sign Out
+                                    </span>
+                                    <FontAwesomeIcon
+                                        icon={faRightFromBracket}
+                                        className="text-2xl"
+                                    />
+                                </button>
+                            </Tooltip>
+                        )}
                     </nav>
                 </div>
             </div>
-            <div className={`${searchDisplay} gap-3 bg-gray-200 px-7 py-3`}>
-                <SearchbarMobile />
-            </div>
+            {searchDisplay && (
+                <div className="gap-3 bg-gray-200 px-7 py-3">
+                    <SearchbarMobile />
+                </div>
+            )}
         </header>
     );
 };

@@ -18,8 +18,6 @@ const Signup = () => {
             onSubmit={handleSubmit}
             className="mx-auto flex max-w-lg flex-col"
         >
-            <h3 className="mb-4 font-zilla text-2xl font-bold">Sign Up</h3>
-
             <label>Email:</label>
             <input
                 type="email"
