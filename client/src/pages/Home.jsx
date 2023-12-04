@@ -1,33 +1,20 @@
 import { useEffect, useState } from "react";
-import { useBooksContext } from "../utils/useBooksContext";
+import { useBooksContext } from "../hooks/useBooksContext";
 
 //components
 import BookDetails from "../components/BookDetails";
 import BookForm from "../components/BookForm";
-import useFetch from "../utils/useFetch";
+import useFetch from "../hooks/useFetch";
 
 const Home = () => {
     const { books, dispatch } = useBooksContext();
-    const [isPending, setIsPending] = useState("true");
-    const [error, setError] = useState(null);
+
+    const { fetchData, isPending, error } = useFetch();
 
     useEffect(() => {
-        fetch("http://localhost:4000/api/books")
-            .then((response) => {
-                if (!response.ok) {
-                    throw Error("Something went wrong");
-                }
-                return response.json();
-            })
-            .then((data) => {
-                dispatch({ type: "SET_BOOKS", payload: data });
-                setIsPending(false);
-                setError(null);
-            })
-            .catch((err) => {
-                setError(err.message);
-                setIsPending(false);
-            });
+        fetchData("http://localhost:4000/api/books", (data) => {
+            dispatch({ type: "SET_BOOKS", payload: data });
+        });
     }, []);
 
     document.title = "Books";

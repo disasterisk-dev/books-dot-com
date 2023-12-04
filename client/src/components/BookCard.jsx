@@ -1,6 +1,6 @@
 import Rating from "@mui/material/Rating";
 import { useNavigate } from "react-router-dom";
-import { useBooksContext } from "../utils/useBooksContext";
+import { useBooksContext } from "../hooks/useBooksContext";
 
 const BookCard = ({ book }) => {
     const { dispatch } = useBooksContext();

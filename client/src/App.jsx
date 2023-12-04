@@ -6,6 +6,7 @@ import Navbar from "./components/Navbar";
 import Book from "./pages/Book";
 import Search from "./pages/Search";
 import Footer from "./components/Footer";
+import Login from "./pages/login";
 
 function App() {
     return (
@@ -15,6 +16,7 @@ function App() {
                 <div className="mx-auto my-10 max-w-[80%]">
                     <Routes>
                         <Route path="/" element={<Home />} />
+                        <Route path="/login" element={<Login />} />
                         <Route path="/books/:id" element={<Book />} />
                         <Route path="/query/:query" element={<Search />} />
                     </Routes>

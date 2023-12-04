@@ -2,7 +2,7 @@ import { useState } from "react";
 
 const useFetch = () => {
     const [data, setData] = useState(null);
-    const [isPending, setIsPending] = useState(false);
+    const [isPending, setIsPending] = useState(null);
     const [error, setError] = useState(null);
 
     const fetchData = async (url, callback) => {
@@ -21,16 +21,16 @@ const useFetch = () => {
                 setData(data);
                 setIsPending(false);
                 setError(null);
+
+                callback(data);
             })
             .catch((err) => {
                 setError(err.message);
                 setIsPending(false);
             });
-
-        callback(data, error);
     };
 
-    return { data, isPending, error, fetchData };
+    return { fetchData, isPending, error };
 };
 
 export default useFetch;

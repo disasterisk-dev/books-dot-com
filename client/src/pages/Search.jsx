@@ -1,36 +1,23 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import useFetch from "../utils/useFetch";
+import useFetch from "../hooks/useFetch";
 import BookPreview from "../components/BookPreview";
 import BookForm from "../components/BookForm";
-import { useBooksContext } from "../utils/useBooksContext";
+import { useBooksContext } from "../hooks/useBooksContext";
 
 const Search = () => {
     const { search, dispatch } = useBooksContext();
     const { query } = useParams();
     const [results, setResults] = useState(null);
-    const [isPending, setIsPending] = useState(true);
-    const [error, setError] = useState(null);
+    // const [isPending, setIsPending] = useState(true);
+    // const [error, setError] = useState(null);
+
+    const { fetchData, isPending, error } = useFetch();
 
     useEffect(() => {
-        setIsPending(true);
-
-        fetch(`https://openlibrary.org/search.json?q=${query}`)
-            .then((response) => {
-                if (!response.ok) {
-                    throw Error("Something went wrong");
-                }
-                return response.json();
-            })
-            .then((data) => {
-                setResults(data);
-                setIsPending(false);
-                setError(null);
-            })
-            .catch((err) => {
-                setError(err.message);
-                setIsPending(false);
-            });
+        fetchData(`https://openlibrary.org/search.json?q=${query}`, (data) => {
+            setResults(data);
+        });
     }, [query]);
 
     return (

@@ -1,6 +1,6 @@
 import { useState } from "react";
-import { useBooksContext } from "../utils/useBooksContext";
-import usePost from "../utils/usePost";
+import { useBooksContext } from "../hooks/useBooksContext";
+import usePost from "../hooks/usePost";
 import {
     Rating,
     Accordion,
