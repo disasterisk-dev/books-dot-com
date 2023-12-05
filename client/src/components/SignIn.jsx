@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { useLogin } from "../hooks/useLogin";
+import PasswordField from "./PasswordField";
 
 const SignIn = () => {
     const [email, setEmail] = useState("");
@@ -28,14 +29,7 @@ const SignIn = () => {
             />
 
             <label>Password:</label>
-            <input
-                type="password"
-                value={password}
-                onChange={(e) => {
-                    setPassword(e.target.value);
-                }}
-                className="mb-4 rounded-lg px-3 py-2"
-            />
+            <PasswordField value={password} setValue={setPassword} />
 
             <button
                 className="rounded-lg bg-blue-900 py-2 font-zilla text-lg font-semibold text-white"

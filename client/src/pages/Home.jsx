@@ -5,6 +5,7 @@ import { useBooksContext } from "../hooks/useBooksContext";
 import BookDetails from "../components/BookDetails";
 import BookForm from "../components/BookForm";
 import useFetch from "../hooks/useFetch";
+import Loading from "../components/Loading";
 
 const Home = () => {
     const { books, dispatch } = useBooksContext();
@@ -26,7 +27,7 @@ const Home = () => {
                     <BookForm />
                 </div>
                 <div className="col-span-12 md:col-span-8">
-                    {isPending && <h2>Loading</h2>}
+                    {isPending && <Loading />}
                     {books && books.length <= 0 && <h1>No books yet</h1>}
                     {books &&
                         books.map((book) => (

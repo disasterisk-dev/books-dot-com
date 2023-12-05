@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { useSignup } from "../hooks/useSignup";
+import PasswordField from "./PasswordField";
 
 const Signup = () => {
     const [email, setEmail] = useState("");
@@ -29,24 +30,10 @@ const Signup = () => {
             />
 
             <label>Password:</label>
-            <input
-                type="password"
-                value={password}
-                onChange={(e) => {
-                    setPassword(e.target.value);
-                }}
-                className="mb-4 rounded-lg px-3 py-2"
-            />
+            <PasswordField value={password} setValue={setPassword} />
 
             <label>Confirm password:</label>
-            <input
-                type="password"
-                value={checkPassword}
-                onChange={(e) => {
-                    setCheckPassword(e.target.value);
-                }}
-                className="mb-4 rounded-lg px-3 py-2"
-            />
+            <PasswordField value={checkPassword} setValue={setCheckPassword} />
 
             <span className="mb-4">
                 Passwords must contain:

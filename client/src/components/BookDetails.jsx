@@ -40,7 +40,7 @@ const BookDetails = ({ book }) => {
                     value={book.rating}
                 />
             </div>
-            <span className="mb-4 block text-right text-xs">
+            <span className="mb-4 block pr-2 pt-1 text-right text-xs">
                 {formatDistanceToNow(new Date(book.createdAt), {
                     addSuffix: true,
                 })}
