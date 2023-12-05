@@ -9,18 +9,10 @@
     padding: 0;
     margin: 0;
 }
-
 #root {
     min-height: 100svh;
+    height: 100vh;
     display: flex;
     flex-direction: column;
-}
-
-.cover:before {
-    content: " ";
-    display: block;
-    position: absolute;
-    height: 100%;
-    width: 100%;
-    background-image: url(https://placehold.co/180x240);
+    overflow: hidden;
 }

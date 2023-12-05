@@ -9,12 +9,12 @@ const Search = () => {
     const { search, dispatch } = useBooksContext();
     const { query } = useParams();
     const [results, setResults] = useState(null);
-    // const [isPending, setIsPending] = useState(true);
-    // const [error, setError] = useState(null);
 
     const { fetchData, isPending, error } = useFetch();
 
     useEffect(() => {
+        setResults(null);
+
         fetchData(`https://openlibrary.org/search.json?q=${query}`, (data) => {
             setResults(data);
         });

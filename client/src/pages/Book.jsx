@@ -1,30 +1,27 @@
 import { useParams } from "react-router-dom";
 import useFetch from "../hooks/useFetch";
 import BookCard from "../components/BookCard";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 
 function Book() {
     const { id } = useParams();
-    const { data, isPending, error, fetchData } = useFetch();
+    const { fetchData, isPending, error } = useFetch();
+    const [book, setBook] = useState(null);
 
     useEffect(() => {
-        fetchData(`http://localhost:4000/api/books/${id}`);
-    }, []);
-
-    useEffect(() => {
-        if (data) {
+        fetchData(`http://localhost:4000/api/books/${id}`, (data) => {
+            setBook(data);
             document.title = data.title;
-            console.log(typeof data.createdAt);
-        }
-    }, [data]);
+        });
+    }, []);
 
     return (
         <>
-            {data && (
+            {book && (
                 <div className="book grid grid-cols-12 gap-3">
-                    <BookCard book={data} />
+                    <BookCard book={book} />
                     <p className="col-span-8 whitespace-pre-wrap">
-                        {data.thoughts}
+                        {book.thoughts}
                     </p>
                 </div>
             )}

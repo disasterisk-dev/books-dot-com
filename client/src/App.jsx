@@ -12,8 +12,8 @@ function App() {
     return (
         <BrowserRouter>
             <Navbar />
-            <main className="grow bg-gray-200 font-poppins">
-                <div className="mx-auto my-10 max-w-[80%]">
+            <main className="flex grow flex-col overflow-y-scroll bg-gray-200 font-poppins">
+                <div className="mx-auto my-10 max-w-[80%] grow">
                     <Routes>
                         <Route path="/" element={<Home />} />
                         <Route path="/login" element={<Login />} />
@@ -21,8 +21,8 @@ function App() {
                         <Route path="/query/:query" element={<Search />} />
                     </Routes>
                 </div>
+                <Footer />
             </main>
-            <Footer />
         </BrowserRouter>
     );
 }

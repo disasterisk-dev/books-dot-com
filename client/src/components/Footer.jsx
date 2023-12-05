@@ -5,7 +5,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 const Footer = () => {
     return (
-        <footer className="bg-gray-900 py-4 text-center text-white">
+        <footer className="relative bottom-0 bg-gray-900 py-4 text-center text-white">
             <Tooltip title="GitHub">
                 <Link
                     to={"https://github.com/JoelRobinsonUK/books-dot-com"}
@@ -15,7 +15,7 @@ const Footer = () => {
                     <FontAwesomeIcon icon={faGithub} className="text-2xl" />
                 </Link>
             </Tooltip>
-            <h6>Copyright &copy; Joel Robinson 2023</h6>
+            <h6 className="text-xs">Copyright &copy; Joel Robinson 2023</h6>
         </footer>
     );
 };
