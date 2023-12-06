@@ -13,7 +13,7 @@ function App() {
         <BrowserRouter>
             <Navbar />
             <main className="flex grow flex-col overflow-y-scroll bg-gray-200 font-poppins">
-                <div className="mx-auto my-10 w-[80%] grow">
+                <div className="mx-auto my-10 w-[95%] md:w-[80%] lg:w-[70%] xl:w-[60%] grow">
                     <Routes>
                         <Route path="/" element={<Home />} />
                         <Route path="/login" element={<Login />} />

@@ -10,6 +10,9 @@ export default {
             gridTemplateColumns: {
                 12: "repeat(12, minmax(0, 1fr))",
             },
+            animation: {
+                "spin-slow": "spin 2s linear infinite"
+            }
         },
     },
     plugins: [],

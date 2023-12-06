@@ -3,9 +3,9 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 const Loading = () => {
     return (
-        <div>
+        <div className="flex justify-center">
             <FontAwesomeIcon
-                className="animate-spin text-center text-5xl text-gray-500"
+                className="animate-spin-slow text-5xl text-gray-500"
                 icon={faSpinner}
             />
         </div>
