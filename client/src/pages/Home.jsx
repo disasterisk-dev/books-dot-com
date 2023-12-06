@@ -21,7 +21,7 @@ const Home = () => {
     document.title = "Books";
 
     return (
-        <div className="home">
+        <div className="home w-full">
             <div className="grid grid-cols-12 gap-3">
                 <div className="col-span-12 md:col-span-4">
                     <BookForm />

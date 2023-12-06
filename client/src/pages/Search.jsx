@@ -21,24 +21,26 @@ const Search = () => {
     }, [query]);
 
     return (
-        <div className="grid grid-cols-12 gap-3">
-            <div className="col-span-12 md:col-span-4">
-                <BookForm />
-            </div>
-            <div className="col-span-12 md:col-span-8">
-                {isPending && !results && <h4>Loading</h4>}
-                {results && (
-                    <>
-                        <h2>Showing results for "{search}"</h2>
-                        {results.docs.map((doc) => (
-                            <BookPreview book={doc} />
-                        ))}
-                    </>
-                )}
-                {results && results.num_found === 0 && <h4>No Results</h4>}
-                {error && (
-                    <h4>Oops! We couldn't find any results for {search}</h4>
-                )}
+        <div className="search">
+            <div className="grid grid-cols-12 gap-3">
+                <div className="col-span-12 md:col-span-4">
+                    <BookForm />
+                </div>
+                <div className="col-span-12 md:col-span-8">
+                    {isPending && !results && <h4>Loading</h4>}
+                    {results && (
+                        <>
+                            <h2>Showing results for "{search}"</h2>
+                            {results.docs.map((doc) => (
+                                <BookPreview book={doc} />
+                            ))}
+                        </>
+                    )}
+                    {results && results.num_found === 0 && <h4>No Results</h4>}
+                    {error && (
+                        <h4>Oops! We couldn't find any results for {search}</h4>
+                    )}
+                </div>
             </div>
         </div>
     );

@@ -9,7 +9,7 @@ const Searchbar = () => {
     const [searchTerm, setSearchTerm] = useState("");
     const navigate = useNavigate();
 
-    const handleClick = (e) => {
+    const handleSubmit = (e) => {
         e.preventDefault();
         let searchString = searchTerm.replaceAll(" ", "+");
         navigate(`/query/${searchString}`);
@@ -21,7 +21,10 @@ const Searchbar = () => {
     };
 
     return (
-        <div className="hidden items-center gap-2 rounded-lg bg-blue-200 px-3 py-2 md:flex">
+        <form
+            className="hidden items-center gap-2 rounded-lg bg-blue-200 px-3 py-2 md:flex"
+            onSubmit={handleSubmit}
+        >
             <input
                 type="text"
                 className="bg-blue-200 focus:outline-0"
@@ -40,7 +43,7 @@ const Searchbar = () => {
                     className="text-2xl"
                 />
             </button>
-        </div>
+        </form>
     );
 };
 

@@ -43,7 +43,7 @@ const BookForm = () => {
 
     return (
         <>
-            <form className="sticky top-24 hidden flex-col rounded-lg bg-white px-3 py-5 md:flex">
+            <form className="sticky top-3 hidden flex-col rounded-lg bg-white px-3 py-5 md:flex">
                 <h3 className="text-center font-zilla text-xl font-semibold">
                     Add a new Book
                 </h3>
