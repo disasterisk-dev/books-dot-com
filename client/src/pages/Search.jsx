@@ -4,6 +4,7 @@ import useFetch from "../hooks/useFetch";
 import BookPreview from "../components/BookPreview";
 import BookForm from "../components/BookForm";
 import { useBooksContext } from "../hooks/useBooksContext";
+import Loading from "../components/Loading";
 
 const Search = () => {
     const { search, dispatch } = useBooksContext();
@@ -27,7 +28,7 @@ const Search = () => {
                     <BookForm />
                 </div>
                 <div className="col-span-12 md:col-span-8">
-                    {isPending && !results && <h4>Loading</h4>}
+                    {isPending && !results && <Loading />}
                     {results && (
                         <>
                             <h2>Showing results for "{search}"</h2>

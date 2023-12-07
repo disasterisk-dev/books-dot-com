@@ -48,7 +48,7 @@ const BookForm = () => {
                     Add a new Book
                 </h3>
 
-                <label>Title:</label>
+                <label>Title*</label>
                 <input
                     type="text"
                     onChange={(e) => {
@@ -62,7 +62,7 @@ const BookForm = () => {
                     }`}
                 />
 
-                <label>Author:</label>
+                <label>Author*</label>
                 <input
                     type="text"
                     onChange={(e) => {
@@ -77,7 +77,7 @@ const BookForm = () => {
                 />
 
                 <label className="mb-2 flex items-center">
-                    Rating:
+                    Rating*
                     <Rating
                         size="large"
                         precision={0.5}
@@ -94,7 +94,7 @@ const BookForm = () => {
                 </label>
 
                 <div className="mb-2">
-                    <label className="mr-3">Finished?</label>
+                    <label className="mr-3">Finished*</label>
                     <input
                         type="checkbox"
                         onChange={() => {
@@ -105,7 +105,7 @@ const BookForm = () => {
                     />
                 </div>
 
-                <label>Thoughts:</label>
+                <label>Thoughts</label>
                 <textarea
                     rows={5}
                     className="mb-2 rounded-md border-2 border-gray-500 px-2 py-1"
@@ -129,7 +129,7 @@ const BookForm = () => {
                     </h3>
                 </AccordionSummary>
                 <AccordionDetails className="flex flex-col">
-                    <label>Title:</label>
+                    <label>Title*</label>
                     <input
                         type="text"
                         onChange={(e) => {
@@ -143,7 +143,7 @@ const BookForm = () => {
                         }`}
                     />
 
-                    <label>Author:</label>
+                    <label>Author*</label>
                     <input
                         type="text"
                         onChange={(e) => {
@@ -158,7 +158,7 @@ const BookForm = () => {
                     />
 
                     <label className="mb-2 flex items-center">
-                        Rating:
+                        Rating*
                         <Rating
                             size="large"
                             precision={0.5}
@@ -175,7 +175,7 @@ const BookForm = () => {
                     </label>
 
                     <div className="mb-2">
-                        <label className="mr-3">Finished?</label>
+                        <label className="mr-3">Finished*</label>
                         <input
                             type="checkbox"
                             onChange={() => {
@@ -188,7 +188,7 @@ const BookForm = () => {
                         />
                     </div>
 
-                    <label>Thoughts:</label>
+                    <label>Thoughts</label>
                     <textarea
                         rows={5}
                         className="mb-2 rounded-md border-2 border-gray-500 px-2 py-1"
