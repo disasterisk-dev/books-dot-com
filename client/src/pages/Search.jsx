@@ -33,7 +33,7 @@ const Search = () => {
                         <>
                             <h2>Showing results for "{search}"</h2>
                             {results.docs.map((doc) => (
-                                <BookPreview book={doc} />
+                                <BookPreview key={doc.key} book={doc} />
                             ))}
                         </>
                     )}

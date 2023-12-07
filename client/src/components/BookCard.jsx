@@ -1,9 +1,11 @@
 import Rating from "@mui/material/Rating";
 import { useNavigate } from "react-router-dom";
 import { useBooksContext } from "../hooks/useBooksContext";
+import { useAuthContext } from "../hooks/useAuthContext";
 
 const BookCard = ({ book }) => {
     const { dispatch } = useBooksContext();
+    const { user } = useAuthContext();
     const navigate = useNavigate();
 
     const handleSubmit = async (e) => {
@@ -13,6 +15,9 @@ const BookCard = ({ book }) => {
             `http://localhost:4000/api/books/${book._id}`,
             {
                 method: "DELETE",
+                headers: {
+                    Authorization: `Bearer ${user.token}`,
+                },
             },
         );
 

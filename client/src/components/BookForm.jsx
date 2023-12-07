@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { useBooksContext } from "../hooks/useBooksContext";
+import { useAuthContext } from "../hooks/useAuthContext";
 import usePost from "../hooks/usePost";
 import {
     Rating,
@@ -10,6 +11,8 @@ import {
 
 const BookForm = () => {
     const { dispatch } = useBooksContext();
+    const { user } = useAuthContext();
+
     const [title, setTitle] = useState("");
     const [author, setAuthor] = useState("");
     const [rating, setRating] = useState(0);
@@ -21,24 +24,34 @@ const BookForm = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
 
+        if (!user) {
+            setError("You must be logged in");
+            return;
+        }
+
         const book = { title, author, rating, finished, thoughts };
 
-        usePost("http://localhost:4000/api/books", book, (err, data) => {
-            if (err) {
-                console.log(err);
-                setError(err);
-                setEmptyFields(data.emptyFields);
-            } else {
-                console.log(data);
-                setTitle("");
-                setAuthor("");
-                setRating(0);
-                setFinished(false);
-                setThoughts("");
+        usePost(
+            "http://localhost:4000/api/books",
+            user.token,
+            book,
+            (err, data) => {
+                if (err) {
+                    console.log(err);
+                    setError(err);
+                    setEmptyFields(data.emptyFields);
+                } else {
+                    console.log(data);
+                    setTitle("");
+                    setAuthor("");
+                    setRating(0);
+                    setFinished(false);
+                    setThoughts("");
 
-                dispatch({ type: "ADD_BOOK", payload: data });
-            }
-        });
+                    dispatch({ type: "ADD_BOOK", payload: data });
+                }
+            },
+        );
     };
 
     return (

@@ -2,17 +2,27 @@ import { useParams } from "react-router-dom";
 import useFetch from "../hooks/useFetch";
 import BookCard from "../components/BookCard";
 import { useEffect, useState } from "react";
+import { useAuthContext } from "../hooks/useAuthContext";
+import { useNavigate } from "react-router-dom";
 
 function Book() {
+    const { user } = useAuthContext();
     const { id } = useParams();
-    const { fetchData, isPending, error } = useFetch();
+    const { fetchDataAuth, isPending, error } = useFetch();
     const [book, setBook] = useState(null);
+    const navigate = useNavigate();
 
     useEffect(() => {
-        fetchData(`http://localhost:4000/api/books/${id}`, (data) => {
-            setBook(data);
-            document.title = data.title;
-        });
+        if (user) {
+            fetchDataAuth(
+                `http://localhost:4000/api/books/${id}`,
+                user.token,
+                (data) => {
+                    setBook(data);
+                    document.title = data.title;
+                },
+            );
+        }
     }, []);
 
     return (

@@ -1,4 +1,4 @@
-const usePost = async (url, obj, callback) => {
+const usePost = async (url, token, obj, callback) => {
     let error = null;
 
     const response = await fetch(url, {
@@ -6,6 +6,7 @@ const usePost = async (url, obj, callback) => {
         body: JSON.stringify(obj),
         headers: {
             "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
         },
     });
 

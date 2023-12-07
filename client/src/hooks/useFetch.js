@@ -30,7 +30,36 @@ const useFetch = () => {
             });
     };
 
-    return { fetchData, isPending, error };
+    const fetchDataAuth = async (url, token, callback) => {
+        setData(null);
+        setIsPending(true);
+        setError(null);
+
+        fetch(url, {
+            headers: {
+                Authorization: `Bearer ${token}`,
+            },
+        })
+            .then((response) => {
+                if (!response.ok) {
+                    throw Error("Something went wrong");
+                }
+                return response.json();
+            })
+            .then((data) => {
+                setData(data);
+                setIsPending(false);
+                setError(null);
+
+                callback(data);
+            })
+            .catch((err) => {
+                setError(err.message);
+                setIsPending(false);
+            });
+    };
+
+    return { fetchData, fetchDataAuth, isPending, error };
 };
 
 export default useFetch;

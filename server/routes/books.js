@@ -1,5 +1,4 @@
 const express = require("express");
-const router = express.Router();
 const {
     getBooks,
     getBook,
@@ -7,6 +6,12 @@ const {
     deleteBook,
     updateBook,
 } = require("../controllers/bookController");
+const requireAuth = require("../middleware/requireAuth");
+
+const router = express.Router();
+
+//require auth for all book routes
+router.use(requireAuth);
 
 //GET all books
 router.get("/", getBooks);

@@ -33,11 +33,7 @@ const Searchbar = () => {
                     setSearchTerm(e.target.value);
                 }}
             />
-            <button
-                onClick={(e) => {
-                    handleClick(e);
-                }}
-            >
+            <button>
                 <FontAwesomeIcon
                     icon={faMagnifyingGlass}
                     className="text-2xl"

@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { useBooksContext } from "../hooks/useBooksContext";
+import { useAuthContext } from "../hooks/useAuthContext";
 
 //components
 import BookDetails from "../components/BookDetails";
@@ -9,14 +10,20 @@ import Loading from "../components/Loading";
 
 const Home = () => {
     const { books, dispatch } = useBooksContext();
-
-    const { fetchData, isPending, error } = useFetch();
+    const { user } = useAuthContext();
+    const { fetchDataAuth, isPending, error } = useFetch();
 
     useEffect(() => {
-        fetchData("http://localhost:4000/api/books", (data) => {
-            dispatch({ type: "SET_BOOKS", payload: data });
-        });
-    }, []);
+        if (user) {
+            fetchDataAuth(
+                "http://localhost:4000/api/books",
+                user.token,
+                (data) => {
+                    dispatch({ type: "SET_BOOKS", payload: data });
+                },
+            );
+        }
+    }, [user]);
 
     document.title = "Books";
 
