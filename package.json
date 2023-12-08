@@ -9,9 +9,7 @@
     "start-server": "cd server && nodemon app.js",
     "install-client": "cd client && npm install",
     "build-client": "cd client && npm run build",
-    "start-client": "cd client && npm run dev",
-    "dev": "concurrently \"npm run start-server\" \"npm run start-client\"",
-    "install": "concurrently \"npm run install-server\" \"npm install-client\""
+    "start-client": "cd client && npm run dev"
   },
   "repository": {
     "type": "git",
