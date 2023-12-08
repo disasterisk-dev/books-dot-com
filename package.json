@@ -7,7 +7,7 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "install-server": "cd server && npm install",
     "start-server": "cd server && nodemon app.js",
-    "install-client": "cd client && npm install",
+    "install-client": "cd client && npm install --production=false",
     "build-client": "cd client && npm run build",
     "start-client": "cd client && npm run dev"
   },
