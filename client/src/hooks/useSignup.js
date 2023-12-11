@@ -10,13 +10,16 @@ export const useSignup = () => {
         setIsLoading(true);
         setError(null);
 
-        const response = await fetch("http://localhost:4000/api/user/signup", {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json",
+        const response = await fetch(
+            "https://books-api-4e8h.onrender.com/api/user/signup",
+            {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify({ email, password, checkPassword }),
             },
-            body: JSON.stringify({ email, password, checkPassword }),
-        });
+        );
 
         const json = await response.json();
 

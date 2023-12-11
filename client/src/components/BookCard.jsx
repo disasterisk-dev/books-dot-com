@@ -12,7 +12,7 @@ const BookCard = ({ book }) => {
         e.preventDefault();
 
         const response = await fetch(
-            `http://localhost:4000/api/books/${book._id}`,
+            `https://books-api-4e8h.onrender.com/api/books/${book._id}`,
             {
                 method: "DELETE",
                 headers: {

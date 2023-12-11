@@ -16,7 +16,7 @@ const Home = () => {
     useEffect(() => {
         if (user) {
             fetchDataAuth(
-                "http://localhost:4000/api/books",
+                "https://books-api-4e8h.onrender.com/api/books",
                 user.token,
                 (data) => {
                     dispatch({ type: "SET_BOOKS", payload: data });

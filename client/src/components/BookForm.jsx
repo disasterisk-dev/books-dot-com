@@ -32,7 +32,7 @@ const BookForm = () => {
         const book = { title, author, rating, finished, thoughts };
 
         usePost(
-            "http://localhost:4000/api/books",
+            "https://books-api-4e8h.onrender.com/api/books",
             user.token,
             book,
             (err, data) => {
