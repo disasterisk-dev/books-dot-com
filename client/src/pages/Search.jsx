@@ -1,12 +1,14 @@
 import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import useFetch from "../hooks/useFetch";
 import BookPreview from "../components/BookPreview";
 import BookForm from "../components/BookForm";
 import { useBooksContext } from "../hooks/useBooksContext";
+import { useAuthContext } from "../hooks/useAuthContext";
 import Loading from "../components/Loading";
 
 const Search = () => {
+    const { user } = useAuthContext();
     const { search, dispatch } = useBooksContext();
     const { query } = useParams();
     const [results, setResults] = useState(null);
@@ -25,7 +27,23 @@ const Search = () => {
         <div className="search">
             <div className="grid grid-cols-12 gap-3">
                 <div className="col-span-12 md:col-span-4">
-                    <BookForm />
+                    {!user && (
+                        <>
+                            <h3 className="font-zilla text-3xl text-blue-900">
+                                Welcome to Books!
+                            </h3>
+                            <span>
+                                <Link
+                                    to={"/login"}
+                                    className="text-blue-900 underline"
+                                >
+                                    Sign Up or Login
+                                </Link>{" "}
+                                to save books to your library
+                            </span>
+                        </>
+                    )}
+                    {user && <BookForm />}
                 </div>
                 <div className="col-span-12 md:col-span-8">
                     {isPending && !results && <Loading />}

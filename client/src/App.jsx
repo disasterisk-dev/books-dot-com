@@ -9,6 +9,7 @@ import Search from "./pages/Search";
 import Footer from "./components/Footer";
 import Login from "./pages/Login";
 import NotFound from "./pages/NotFound";
+import Welcome from "./pages/Welcome";
 
 function App() {
     const { user } = useAuthContext();
@@ -19,7 +20,10 @@ function App() {
             <main className="flex grow flex-col overflow-y-scroll bg-gray-200 font-poppins">
                 <div className="mx-auto my-10 w-[95%] grow md:w-[80%] lg:w-[70%] xl:w-[60%]">
                     <Routes>
-                        <Route path="/" element={user ? <Home /> : <Login />} />
+                        <Route
+                            path="/"
+                            element={user ? <Home /> : <Welcome />}
+                        />
                         <Route
                             path="/login"
                             element={!user ? <Login /> : <Home />}

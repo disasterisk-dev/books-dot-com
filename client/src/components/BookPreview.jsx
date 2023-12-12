@@ -2,8 +2,10 @@ import { Tooltip } from "@mui/material";
 import { useEffect, useState, useRef } from "react";
 import { faH, faHeart, faPlus } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { useAuthContext } from "../hooks/useAuthContext";
 
 const BookPreview = ({ book }) => {
+    const { user } = useAuthContext();
     return (
         <div
             key={book.key}
@@ -21,26 +23,28 @@ const BookPreview = ({ book }) => {
                     />
                 </div>
             )}
-            <div className="col-span-9 flex gap-3 flex-col">
+            <div className="col-span-9 flex flex-col gap-3">
                 <div className="grow">
                     <h3 className="text-2xl">{book.title}</h3>
                     {book.author_name && (
                         <span>{book.author_name.join(", ")}</span>
                     )}
                 </div>
-                <div className="flex justify-end gap-2">
-                    <Tooltip title="Add Book">
-                        <button className="border-2 border-blue-900 text-blue-900 p-2 rounded-lg flex items-center justify-center gap-2">
-                            <FontAwesomeIcon icon={faPlus} />
-                            <span>Add Book</span>
-                        </button>
-                    </Tooltip>
-                    <Tooltip title="Wishlist">
-                        <button className="bg-blue-900 text-white rounded-lg flex items-center justify-center p-3">
-                            <FontAwesomeIcon icon={faHeart}/>
-                        </button>
-                    </Tooltip>
-                </div>
+                {user && (
+                    <div className="flex justify-end gap-2">
+                        <Tooltip title="Add Book">
+                            <button className="flex items-center justify-center gap-2 rounded-lg border-2 border-blue-900 p-2 text-blue-900">
+                                <FontAwesomeIcon icon={faPlus} />
+                                <span>Add Book</span>
+                            </button>
+                        </Tooltip>
+                        <Tooltip title="Wishlist">
+                            <button className="flex items-center justify-center rounded-lg bg-blue-900 p-3 text-white">
+                                <FontAwesomeIcon icon={faHeart} />
+                            </button>
+                        </Tooltip>
+                    </div>
+                )}
             </div>
         </div>
     );

@@ -1,15 +1,11 @@
-# Books.com
+# Books
 
-## Installation
+Books is a MERN stack web app for finding and reviewing books.
 
-to install dependencies first:
+The front-end is built in React, with Material UI and Tailwind CSS.
 
-```
-npm install
-```
+The back-end API is built in the Node runtime with Express.js.
 
-then:
+Data and authentication via MongoDB and JWT.
 
-```
-npm run install
-```
+The search functionality is made possible by the [Open Library API](https://openlibrary.org/) .
