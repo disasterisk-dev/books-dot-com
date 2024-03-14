@@ -18,6 +18,7 @@ const PasswordField = ({ value, setValue }) => {
             />
             <button
                 className="mx-3"
+                tabIndex={-1}
                 onClick={(e) => {
                     e.preventDefault();
 
